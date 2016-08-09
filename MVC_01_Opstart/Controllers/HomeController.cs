@@ -13,7 +13,6 @@ namespace MVC_01_Opstart.Controllers
         ProductFactory productFac;
         CategoryFactory categoryFac;
 
-        // GET: Home
         public ActionResult Index()
         {
             return View();
@@ -27,8 +26,20 @@ namespace MVC_01_Opstart.Controllers
         public ActionResult Products()
         {
             productFac = new ProductFactory();
-            List<Product> allProducts = productFac.GetAll();
-            return View(allProducts);
+            categoryFac = new CategoryFactory();
+
+            List<Category> allCategories = categoryFac.GetAll();
+            ViewBag.AllCategories = allCategories;
+
+            if (TempData["FilteredProducts"] == null)
+            {
+                List<Product> allProducts = productFac.GetAll();
+                return View(allProducts); 
+            }
+            else
+            {
+                return View(TempData["FilteredProducts"]);
+            }
         }
 
         public ActionResult ShowProduct(int id = 0)
@@ -36,6 +47,17 @@ namespace MVC_01_Opstart.Controllers
             productFac = new ProductFactory();
             Product productToFind = productFac.Get(id);
             return View(productToFind);
+        }
+
+        [HttpPost]
+        public ActionResult ShowFilteredProducts(int categoryID)
+        {
+            productFac = new ProductFactory();
+            List<Product> filteredProducts = productFac.GetAll()
+                .Where(p => p.CategoryID == categoryID).ToList();
+            TempData["FilteredProducts"] = filteredProducts;
+
+            return RedirectToAction("Products");
         }
     }
 }

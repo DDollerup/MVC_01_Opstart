@@ -5,6 +5,19 @@
 
 <h2>Products</h2>
 <hr />
+<form action="/Home/ShowFilteredProducts" method="post">
+    <select name="categoryID">
+        <option value="0">Pick Category...</option>
+        @foreach (var category in (ViewBag.AllCategories as List<MVC_01_Opstart.Models.Category>))
+        {
+            <option value="@category.ID">
+                @category.Name
+            </option>
+        }
+    </select>
+    <input type="submit" value="Filter Products" />
+</form>
+<hr />
 <ul>
     @foreach (var product in Model)
     {
