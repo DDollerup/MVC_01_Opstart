@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<h2>AddProduct</h2>
+
+<form action="/Admin/Admin/AddProductSubmit" method="post">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Fields
+            </th>
+            <th>
+                Values
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                <input type="text" name="Name" required class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                <textarea name="Description" class="form-control" required></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price
+            </td>
+            <td>
+                <input type="number" step="any" name="Price" required class="form-control"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Category
+            </td>
+            <td>
+                <select name="CategoryID" required class="form-control">
+                    <option>Select Category...</option>
+                    @foreach (var category in (ViewBag.AllCategories as List<MVC_01_Opstart.Models.Category>))
+                    {
+                        <option value="@category.ID">@category.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Add Product" />
+            </td>
+        </tr>
+    </table>
+</form>
