@@ -26,8 +26,21 @@ namespace MVC_01_Opstart.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProductSubmit(Product p)
+        public ActionResult AddProductSubmit(Product p, HttpPostedFileBase file)
         {
+            p.Image = "placeholder.jpg";
+
+            // Is there a file?
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = file.FileName;
+                p.Image = fileName; // HVIS SØRENS ELEVER, SLET DENNE
+
+                string path = Request.PhysicalApplicationPath + @"/Content/";
+                // TIL SØRENS ELEVER p.Image = path + fileName;
+                file.SaveAs(path + fileName);
+            }
+
             productFac = new ProductFactory();
             productFac.Add(p);
 

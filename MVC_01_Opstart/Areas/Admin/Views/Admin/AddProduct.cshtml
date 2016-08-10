@@ -5,7 +5,7 @@
 
 <h2>AddProduct</h2>
 
-<form action="/Admin/Admin/AddProductSubmit" method="post">
+<form action="/Admin/Admin/AddProductSubmit" method="post" enctype="multipart/form-data">
     <table class="table table-bordered">
         <tr>
             <th>
@@ -51,6 +51,14 @@
                         <option value="@category.ID">@category.Name</option>
                     }
                 </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Image
+            </td>
+            <td>
+                <input type="File" name="file" class="form-control" required />
             </td>
         </tr>
         <tr>

@@ -12,5 +12,6 @@ namespace MVC_01_Opstart.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public int CategoryID { get; set; }
+        public string Image { get; set; }
     }
 }
