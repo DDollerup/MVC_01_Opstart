@@ -16,6 +16,9 @@
         <th>
             Edit
         </th>
+        <th>
+            Delete
+        </th>
     </tr>
     @foreach (var product in Model)
     {
@@ -28,6 +31,9 @@
             </td>
             <td>
                 <a href="/Admin/Admin/UpdateProduct/@product.ID">Edit</a>
+            </td>
+            <td>
+                <a href="/Admin/Admin/DeleteProductSubmit/@product.ID" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
     }

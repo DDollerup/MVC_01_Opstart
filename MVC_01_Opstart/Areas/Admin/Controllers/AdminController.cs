@@ -88,5 +88,16 @@ namespace MVC_01_Opstart.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult DeleteProductSubmit(int id)
+        {
+            productFac = new ProductFactory();
+            Product p = productFac.Get(id);
+            productFac.Delete(id);
+
+            TempData["MSG"] = "A new product, " + p.Name + ", has been deleted.";
+
+            return RedirectToAction("Index");
+        }
     }
 }
