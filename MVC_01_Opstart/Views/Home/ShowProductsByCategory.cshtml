@@ -1,0 +1,28 @@
+﻿@model List<MVC_01_Opstart.Models.Product>
+@{
+    ViewBag.Title = "ShowProductsByCategory";
+}
+
+<h2>ShowProductsByCategory</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Read More
+        </th>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                <a href="/Home/ShowProduct/@product.ID">Read More</a>
+            </td>
+        </tr>
+    }
+</table>

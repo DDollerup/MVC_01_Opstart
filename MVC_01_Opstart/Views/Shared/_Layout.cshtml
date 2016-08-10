@@ -7,19 +7,50 @@
     <link type="text/css" href="~/Content/CSS/Main.css" rel="stylesheet" />
 </head>
 <body>
-    <ul>
-        <li>
-            <a href="/Home/Index">Index</a>
-        </li>
-        <li>
-            <a href="/Home/Contact">Contact</a>
-        </li>
-    </ul>
-    <hr />
-    LAYOUT
-    <hr />
-    @RenderBody()
-    <hr />
-    LAYOUT
+    <div class="fullWidth" id="topNav">
+        <div id="topNavContent">
+            fisk
+        </div>
+    </div>
+    <div class="fullWidth" id="nav">
+        <nav>
+            <ul>
+                <li>
+                    <a href="/Home/Index">Home</a> 
+                </li>
+                <li>
+                    <a href="/Home/Products">Products</a>
+                </li>
+                @foreach (var category in (ViewBag.AllCategories as List<MVC_01_Opstart.Models.Category>))
+                {
+                    <li>
+                        <a href="/Home/ShowProductsByCategory/@category.ID">@category.Name</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <div class="fullWidth" id="content">
+        <section>
+            @RenderBody()
+        </section>
+    </div>
+    <div class="fullWidth" id="footer">
+        <footer>
+            <div class="buttonInfoBox">
+                <h4>Products</h4>
+                <ul>
+                    @foreach (var product in (ViewBag.Top5Products as List<MVC_01_Opstart.Models.Product>))
+                    {
+                        <li>
+                            <a href="/Home/ShowProduct/@product.ID">@product.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="third buttonInfoBox"></div>
+            <div class="third buttonInfoBox"></div>
+        </footer>
+    </div>
 </body>
 </html>

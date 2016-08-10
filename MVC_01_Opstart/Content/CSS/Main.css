@@ -1,3 +1,64 @@
 ﻿body {
-    background-color: pink;
+    margin: 0;
+    padding: 0;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+#topNav {
+    height: 30px;
+    background-color: darkslateblue;
+}
+
+#topNavContent {
+    width: 980px;
+    margin: auto;
+}
+
+#nav {
+    height: 175px;
+    background-color: cornflowerblue;
+}
+
+
+nav {
+    width: 980px;
+    margin: auto;
+}
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        nav ul li {
+        }
+
+#content {
+    height: 500px;
+}
+
+
+section {
+    width: 980px;
+    margin: auto;
+}
+
+
+#footer {
+    height: 175px;
+    background-color: cornflowerblue;
+}
+
+
+footer {
+    width: 980px;
+    margin: auto;
+}
+
+.buttonInfoBox {
+    width: 33%;
+    float: left;
 }
