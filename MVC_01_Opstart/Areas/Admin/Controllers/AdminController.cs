@@ -48,5 +48,45 @@ namespace MVC_01_Opstart.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult UpdateProductsList()
+        {
+            productFac = new ProductFactory();
+            List<Product> allProducts = productFac.GetAll();
+            return View(allProducts);
+        }
+
+        public ActionResult UpdateProduct(int id = 0)
+        {
+            categoryFac = new CategoryFactory();
+            productFac = new ProductFactory();
+            ViewBag.AllCategories = categoryFac.GetAll();
+
+            Product productToEdit = productFac.Get(id);
+
+            return View(productToEdit);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProductSubmit(Product p, HttpPostedFileBase file)
+        {
+            // Is there a file?
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = file.FileName;
+                p.Image = fileName; // HVIS SØRENS ELEVER, SLET DENNE
+
+                string path = Request.PhysicalApplicationPath + @"/Content/";
+                // TIL SØRENS ELEVER p.Image = path + fileName;
+                file.SaveAs(path + fileName);
+            }
+
+            productFac = new ProductFactory();
+            productFac.Update(p);
+
+            TempData["MSG"] = "A new product, " + p.Name + ", has been updated.";
+
+            return RedirectToAction("Index");
+        }
     }
 }

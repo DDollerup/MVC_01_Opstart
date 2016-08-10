@@ -1,0 +1,87 @@
+﻿@model MVC_01_Opstart.Models.Product
+@{
+    ViewBag.Title = "UpdateProduct";
+}
+
+<h2>UpdateProduct</h2>
+
+<form action="/Admin/Admin/UpdateProductSubmit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID" value="@Model.ID" />
+    <input type="hidden" name="Image" value="@Model.Image" />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Fields
+            </th>
+            <th>
+                Values
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                <input type="text" name="Name" required class="form-control" value="@Model.Name" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                <textarea name="Description" class="form-control" required>@Model.Description</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price
+            </td>
+            <td>
+                <input type="number" step="any" name="Price" required class="form-control" value="@Model.Price"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Category
+            </td>
+            <td>
+                <select name="CategoryID" required class="form-control">
+                    <option value="">Select Category...</option>
+                    @foreach (var category in (ViewBag.AllCategories as List<MVC_01_Opstart.Models.Category>))
+                    {
+                        if (Model.CategoryID == category.ID)
+                        {
+                            <option value="@category.ID" selected="selected">@category.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@category.ID">@category.Name</option>
+                        }
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Current Image
+            </td>
+            <td>
+                <img src="~/Content/@Model.Image" alt="Alternate Text" class="img-responsive" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Image
+            </td>
+            <td>
+                <input type="File" name="file" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Edit Product" />
+            </td>
+        </tr>
+    </table>
+</form>
