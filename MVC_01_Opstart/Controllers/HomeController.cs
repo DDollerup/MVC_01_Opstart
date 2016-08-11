@@ -13,7 +13,6 @@ namespace MVC_01_Opstart.Controllers
         ProductFactory productFac;
         CategoryFactory categoryFac;
 
-
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             productFac = new ProductFactory();
@@ -41,14 +40,18 @@ namespace MVC_01_Opstart.Controllers
             List<Category> allCategories = categoryFac.GetAll();
             ViewBag.AllCategories = allCategories;
 
-            if (TempData["FilteredProducts"] == null)
+            if (TempData["FilteredProducts"] != null)
             {
-                List<Product> allProducts = productFac.GetAll();
-                return View(allProducts);
+                return View(TempData["FilteredProducts"]);
+            }
+            else if (TempData["SearchResults"] != null)
+            {
+                return View(TempData["SearchResults"]);
             }
             else
             {
-                return View(TempData["FilteredProducts"]);
+                List<Product> allProducts = productFac.GetAll();
+                return View(allProducts);
             }
         }
 
@@ -75,6 +78,24 @@ namespace MVC_01_Opstart.Controllers
             productFac = new ProductFactory();
             List<Product> productsWithCategory = productFac.GetAll().Where(x => x.CategoryID == id).ToList();
             return View(productsWithCategory);
+        }
+
+        public ActionResult SearchSubmit()
+        {
+            string searchQuery = Request.QueryString["searchQuery"].ToString().ToLower();
+
+            productFac = new ProductFactory();
+
+            List<Product> searchResults = productFac.GetAll().
+                Where(x =>
+                x.Name.ToLower().Contains(searchQuery)
+                ||
+                x.Description.ToLower().Contains(searchQuery))
+                .ToList();
+
+            TempData["SearchResults"] = searchResults;
+
+            return RedirectToAction("Products");
         }
     }
 }
