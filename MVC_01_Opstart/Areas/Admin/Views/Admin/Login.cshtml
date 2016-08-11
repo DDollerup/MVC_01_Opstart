@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form action="/Admin/Admin/LoginSubmit" method="post">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Password
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" name="username" placeholder="Username..." class="form-control" />
+            </td>
+            <td>
+                <input type="password" name="password" placeholder="Password..." class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Login" class="form-control" />
+            </td>
+        </tr>
+    </table>
+</form>

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MVC_01_Opstart.Factories;
 using MVC_01_Opstart.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MVC_01_Opstart.Areas.Admin.Controllers
 {
@@ -12,6 +14,17 @@ namespace MVC_01_Opstart.Areas.Admin.Controllers
     {
         ProductFactory productFac;
         CategoryFactory categoryFac;
+        AccountFactory accountFac;
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["UserLoggedIn"] == null && !Request.RawUrl.ToLower().Contains("login"))
+            {
+                Response.Redirect("/Admin/Admin/Login");
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
 
         public ActionResult Index()
         {
@@ -98,6 +111,47 @@ namespace MVC_01_Opstart.Areas.Admin.Controllers
             TempData["MSG"] = "A new product, " + p.Name + ", has been deleted.";
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LoginSubmit(string username, string password)
+        {
+            accountFac = new AccountFactory();
+
+            string encryptedPassword = "";
+
+            SHA512 key = new SHA512Managed();
+            key.ComputeHash(Encoding.ASCII.GetBytes(password));
+            encryptedPassword = BitConverter.ToString(key.Hash).Replace("-", "");
+
+            Account accountToLogin = accountFac.GetAll()
+                .Find(x =>
+                x.Username.ToLower() == username.ToLower()
+                &&
+                x.Password == encryptedPassword);
+
+            if (accountToLogin != null && accountToLogin.ID > 0)
+            {
+                Session["UserLoggedIn"] = accountToLogin;
+            }
+            else
+            {
+                TempData["MSG"] = "Username or password was incorrect.";
+                return RedirectToAction("Login");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserLoggedIn"] = null;
+            return Redirect("/Home/Index");
         }
     }
 }

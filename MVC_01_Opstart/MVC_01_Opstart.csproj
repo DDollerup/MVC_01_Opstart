@@ -104,6 +104,7 @@
     <Content Include="Areas\Admin\Views\Admin\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\UpdateProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\UpdateProductsList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -116,12 +117,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Factories\AccountFactory.cs" />
     <Compile Include="Factories\AutoFactory.cs" />
     <Compile Include="Factories\CategoryFactory.cs" />
     <Compile Include="Factories\ProductFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
